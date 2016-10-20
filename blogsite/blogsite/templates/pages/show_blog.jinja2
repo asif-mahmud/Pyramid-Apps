@@ -1,0 +1,25 @@
+{% extends '../layouts/layout-with-nav.jinja2' %}
+
+
+{% block PageTitle %}Blog | {{ blog.title }}{% endblock %}
+
+
+{% block PageContent %}
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h4 class="text-center text-info text-uppercase">{{ blog.title }}</h4>
+            <h5 class="text-center text-info">by {{ blog.blogger.name }}</h5>
+            <h6 class="text-center text-info">Created on {{ blog.created_on.ctime() }}</h6>
+            <h6 class="text-center text-info">Last updated on {{ blog.updated_on.ctime() }}</h6>
+            <article class="text-justify">
+                {{ blog }}
+            </article>
+        </div>
+        <div class="col-md-2"></div>
+
+    </div>
+</div>
+{% endblock %}

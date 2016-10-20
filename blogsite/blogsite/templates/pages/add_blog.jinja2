@@ -1,0 +1,43 @@
+{% extends '../layouts/layout-with-nav.jinja2' %}
+{% block PageTitle %}
+    {% if blog %}
+        Edit | {{ blog.title }}
+    {% else %}
+        Create Blog
+    {% endif %}
+{% endblock %}
+
+{% block PageContent %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <p class="text-danger">{{ error_msg }}</p>
+            <form role="form" action="{% if blog %}
+                {{ request.route_url('edit_blog', bid=blog.id) }}
+            {% else %}
+                {{ request.route_url('add_blog') }}
+            {% endif %}" method="post">
+
+                <div class="form-group">
+                    <label for="blog-title">Title</label>
+                    <input type="text" id="blog-title" name="title" class="form-control" {% if blog %}
+                        value="{{ blog.title|e }}"
+                    {% endif %}>
+                </div>
+
+                <div class="form-group">
+                    <label for="blog-desc">Description</label>
+                    <textarea id="blog-desc" name="description" class="form-control" >{% if blog %}{{ blog }}{% endif %}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <button name="blog.submitted" class="btn btn-default center-block" type="submit">Save</button>
+                </div>
+
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+{% endblock %}

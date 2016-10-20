@@ -1,0 +1,83 @@
+{% extends '../layouts/layout-with-nav.jinja2' %}
+
+{% block PageTitle %}
+Pyramid Blog Site
+{% endblock %}
+
+{% block PageContent %}
+    <h4 class="text-center">Welcome to Pyramid Text Based Blog Site</h4>
+
+    <div class="container">
+        {% if not request.user %}
+            <p class="text-center">Please Login or Register to enter.</p>
+            <div class="row">
+
+                <div class="col-md-1"></div>
+
+                <div class="col-md-4">
+
+                    <h5 class="text-center text-capitalize text-info">register</h5>
+                    <p class="text-danger text-center">{{ reg_error_msg }}</p>
+                    <form role="form" action="{{ request.route_url('register') }}" method="post">
+                        <div class="form-group">
+                            <label for="name">Username</label>
+                            <input type="text" id="name" name="name" class="form-control" value="{{ reg_name }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="password-retype">Re-type Password</label>
+                            <input type="password" id="password-retype" name="password-retype" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" name="reg.submitted" class="btn btn-default center-block">Register</button>
+                        </div>
+                    </form>
+
+                </div>
+
+                <div class="col-md-2"></div>
+
+                <div class="col-md-4">
+
+                    <h5 class="text-center text-capitalize text-info">login</h5>
+                    <p class="text-danger text-center">{{ login_error_msg }}</p>
+                    <form role="form" action="{{ request.route_url('login') }}" method="post">
+                        <div class="form-group">
+                            <label for="name">Username</label>
+                            <input type="text" id="name" name="name" class="form-control" value="{{ login_name }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" name="login.submitted" class="btn btn-default center-block">Login</button>
+                        </div>
+                    </form>
+
+                </div>
+
+                <div class="col-md-1"></div>
+
+            </div>
+        {% else %}
+            <p class="text-center">You are logged in as {{ request.user.name }}</p>
+            {% if blogs|count > 0 %}
+                <h4 class="text-center">Recently updated blogs</h4>
+                {% for blog in blogs %}
+                    <div class="row" style="border: 1px solid grey">
+                        <p>
+                            <a href="{{ request.route_url('show_blog', bid=blog.id) }}">{{ blog.title|e }}</a>
+                            <p>By {{ blog.blogger.name|e }}</p>
+                            <p>Created on {{ blog.created_on.ctime() }}</p>
+                            <p>Last Updated on {{ blog.updated_on.ctime() }}</p>
+                        </p>
+                    </div><br>
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}

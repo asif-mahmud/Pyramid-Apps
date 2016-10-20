@@ -1,0 +1,33 @@
+{% extends './layout.jinja2' %}
+
+{% block NavigationBar %}
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Navbar Site Image -->
+        <div class="navbar-header">
+            <a class="navbar-brand text-uppercase" href="{{ request.route_url('home') }}">Pyramid Blog</a>
+        </div>
+
+        <!-- The main Navigation bar -->
+        <div>
+            <ul class="nav navbar-nav navbar-right">
+                {% if request.user %}
+                <li><a href="{{ request.route_url('all_blogs') }}">Blogs</a> </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle text-uppercase" data-toggle="dropdown">
+                        {{ request.user.name }}
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ request.route_url('show_profile', pid=request.user.id) }}">Profile</a></li>
+                        <li><a href="{{ request.route_url('edit_profile', pid=request.user.id) }}">Edit Profile</a></li>
+                        <li><a href="{{ request.route_url('add_blog') }}">Add new Blog</a></li>
+                        <li><a href="{{ request.route_url('logout') }}">Logout</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}

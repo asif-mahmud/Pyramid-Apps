@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--
+    Contains:
+        1. PageDescription
+        2. PageAuthor
+        3. PageTitle
+        4. BootStrapCss
+        5. Css
+        6. NavigationBar
+        7. PageContent
+        8. BootStrapJs
+        9. Js
+-->
+<html lang="{{request.locale_name}}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block PageDescription %}
+    Pyramid text based blog application.
+    {% endblock %}">
+    <meta name="author" content="{% block PageAuthor %}
+        Asif Mahmud Shimon
+    {% endblock %}">
+
+    <title>{% block PageTitle %}
+        Pyramid Text Blog
+    {% endblock %}</title>
+
+    {% block BootStrapCss %}
+    <!-- Bootstrap core CSS -->
+    <link href="{{ request.static_url('blogsite:static/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Custom styles for this scaffold -->
+    <link href="{{request.static_url('blogsite:static/css/bootstrap-theme.min.css')}}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    {% endblock %}
+  
+    {% block Css %}
+        <!-- Load your css files here -->
+    {% endblock %}
+  </head>
+
+  <body style="padding-top: 70px;">
+
+    <div class="container">
+        {% block NavigationBar %}
+        <!-- Here goes the navigation bar -->
+        {% endblock %}
+
+        {% block PageContent %}
+        <!-- Specific Page Contents -->
+        {% endblock %}
+    </div>
+
+    {% block BootStrapJs %}
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{ request.static_url('blogsite:static/js/jquery-1.12.3.min.js') }}"></script>
+    <script src="{{ request.static_url('blogsite:static/js/bootstrap.min.js') }}"></script>
+    {% endblock %}
+
+    {% block Js %}
+    <!-- Load your Js files here -->
+    {% endblock %}
+
+  </body>
+</html>

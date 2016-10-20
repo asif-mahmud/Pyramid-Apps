@@ -1,0 +1,21 @@
+{% extends '../layouts/layout-with-nav.jinja2' %}
+
+
+{% block PageTitle %}All Blogs{% endblock %}
+
+{% block PageContent %}
+{% if blogs|count > 0 %}
+    {% for blog in blogs %}
+        <div class="row" style="border: 1px solid grey">
+            <p>
+                <a href="{{ request.route_url('show_blog', bid=blog.id) }}">{{ blog.title|e }}</a>
+                <p>By {{ blog.blogger.name|e }}</p>
+                <p>Created on {{ blog.created_on.ctime() }}</p>
+                <p>Last Updated on {{ blog.updated_on.ctime() }}</p>
+            </p>
+        </div><br>
+    {% endfor %}
+{% else %}
+    No Blog Found!
+{% endif %}
+{% endblock %}

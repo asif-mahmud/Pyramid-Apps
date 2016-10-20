@@ -1,0 +1,38 @@
+{% extends '../layouts/layout-with-nav.jinja2' %}
+
+{% block PageTitle %}{{ blogger.name }}'s Profile{% endblock %}
+
+{% block PageContent %}
+<div class="container">
+    <h4 class="text-center">
+        <span class="text-uppercase">{{ blogger.name }}</span>'s Profile
+    </h4>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h4 class="text-center text-info">{{ blogger.name }}'s blogs</h4>
+            {% if blogger.blogs|count > 0 %}
+                {% for blog in blogger.blogs %}
+                    <div class="row" style="border: 1px solid grey">
+                        <div class="col-sm-8">
+                            <p>
+                                <a href="{{ request.route_url('show_blog', bid=blog.id) }}">{{ blog.title|e }}</a>
+                                <p>Created on {{ blog.created_on.ctime() }}</p>
+                                <p>Last Updated on {{ blog.updated_on.ctime() }}</p>
+                            </p>
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-default center-block">
+                                <a href="{{ request.route_url('edit_blog', bid=blog.id) }}">Edit</a>
+                            </button>
+                        </div>
+                    </div><br>
+                {% endfor %}
+            {% else %}
+                No Blog Created Yet!
+            {% endif %}
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+{% endblock %}
