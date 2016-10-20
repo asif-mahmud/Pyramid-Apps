@@ -5,4 +5,4 @@ Web applications based on Pyramid framework.
 
 ---------------
 
-* #blogsite - Text based Blog using Pyramid, SQLAlchemy, Jinja2, Bootstrap
+* ``blogsite`` - Text based Blog using Pyramid, SQLAlchemy, Jinja2, Bootstrap
