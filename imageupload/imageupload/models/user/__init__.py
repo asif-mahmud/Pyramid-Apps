@@ -1,1 +1,1 @@
-from .user import User, ProfilePicture
+from .model import User, ProfilePicture

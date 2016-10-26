@@ -35,6 +35,13 @@ class User(Base, BaseValidator):
         uselist=False,
     )
 
+    galleries = relationship(
+        "Gallery",
+        back_populates='user',
+        uselist=True,
+        cascade='all, delete-orphan',
+    )
+
     def validate(self,
                  dbsession,
                  name=None,

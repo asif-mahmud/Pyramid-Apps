@@ -19,6 +19,9 @@ from .user import (
     User,
     ProfilePicture,
 )
+from .gallery import (
+    Gallery,
+)
 
 # run configure_mappers after defining all of the models to ensure
 # all relationships can be setup
