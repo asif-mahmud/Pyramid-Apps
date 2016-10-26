@@ -47,11 +47,11 @@ class BaseImage(object):
         """Tries to download the file to ``temporary`` folder.
 
         Returns:
-            ``None`` if does not succeed else the full file path of the
-            ``temporary`` file.
+            the full file path of the ``temporary`` file if succeeds.
+            else ``None``.
         """
         if globalvars.image_storage is None:
-            raise OSError('No Image storage')
+            return None
 
         # Find a suitable non-existent file name
         filename = None
@@ -69,14 +69,14 @@ class BaseImage(object):
                 )
                 break
         else:
-            raise OSError("No Suitable file name")
+            return None
 
         # Try to downlaod the file object.
         try:
             with open(filename, 'wb') as output_file:
                 shutil.copyfileobj(file_obj, output_file)
         except Exception as err:
-            raise err
+            return None
 
         if validate:
             vstatus = self.validate(temp_filename=filename)
