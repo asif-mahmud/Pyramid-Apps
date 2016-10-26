@@ -10,10 +10,8 @@ from sqlalchemy import (
 from sqlalchemy.orm import Query
 from .func import get_validator_status
 from .func import get_image_writer
-import logging
-
-
-log = logging.getLogger(__name__)
+from sqlalchemy.event import listen
+from sqlalchemy.orm import Session
 
 
 class BaseImage(object):
@@ -155,6 +153,10 @@ class BaseImageQuery(Query):
         cls._images_to_write.append(target)
 
     @classmethod
+    def after_update(cls, mapper, connection, target):
+        cls._images_to_write.append(target)
+
+    @classmethod
     def after_delete(cls, mapper, connection, target):
         cls._images_to_delete.append(target)
 
@@ -179,3 +181,11 @@ class BaseImageQuery(Query):
             writer.delete_all()
         cls._images_to_write.clear()
         cls._images_to_delete.clear()
+
+
+def register_listeners():
+    listen(BaseImage, 'after_insert', BaseImageQuery.after_insert, propagate=True)
+    listen(BaseImage, 'after_update', BaseImageQuery.after_update, propagate=True)
+    listen(BaseImage, 'after_delete', BaseImageQuery.after_delete, propagate=True)
+    listen(Session, 'after_soft_rollback', BaseImageQuery.after_soft_rollback)
+    listen(Session, 'after_commit', BaseImageQuery.after_commit)

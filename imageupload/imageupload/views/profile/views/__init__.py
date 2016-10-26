@@ -32,6 +32,10 @@ class UserProfile(object):
     def add_profile_picture(self):
         if 'form.submitted' in self.request.params:
             img = ProfilePicture()
+            try:
+                file_obj_test = self.request.POST['file'].file
+            except AttributeError:
+                return dict()
             check = img.from_file_obj(self.request.POST['file'].file)
             if check is None:
                 return dict()

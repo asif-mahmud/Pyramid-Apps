@@ -10,6 +10,7 @@ from sqlalchemy import (
     Text,
     ARRAY,
     ForeignKey,
+    DateTime,
 )
 from sqlalchemy.orm import (
     relationship,
@@ -18,6 +19,7 @@ from bcrypt import (
     hashpw,
     gensalt,
 )
+from sqlalchemy import func
 
 
 class User(Base, BaseValidator):
@@ -26,7 +28,8 @@ class User(Base, BaseValidator):
     id = Column(Integer, primary_key=True)
     name = Column(Text, unique=True, nullable=False, index=True)
     _password_hash = Column(Text, nullable=False)
-    roles = Column(ARRAY(Text), default=['user', ])
+    roles = Column(ARRAY(Text), default=['user', ], nullable=False)
+    joined_on = Column(DateTime, server_default=func.now(), nullable=False)
 
     profile_picture = relationship(
         "ProfilePicture",

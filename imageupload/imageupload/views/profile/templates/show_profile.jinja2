@@ -5,19 +5,41 @@
         {% if user.profile_picture %}
 <div class="container">
     <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-4">
+        <div class="col-md-1"></div>
+        <div class="col-md-4" style="border-right: 2px solid grey">
             {% if user.profile_picture.image_type == 'FFMPEG' %}
             <video src="{{ request.static_url(user.profile_picture.get_url((128, 128))) }}" autoplay loop class="img-thumbnail img-circle center-block" width="128" height="128"></video>
             {% else %}
             <img src="{{ request.static_url(user.profile_picture.get_url((128, 128))) }}" alt="Could not find image" class="img-thumbnail img-circle center-block">
             {% endif %}
-            <button class="btn btn-info center-block"><a href="{{ request.route_url('add_profile_picture') }}">Change</a></button>
+            <a href="{{ request.route_url('add_profile_picture') }}" class="btn btn-info center-block">Change</a>
         </div>
-        <div class="col-md-4">
-            <h4 class="text-center">{{ user.name|e }}</h4>
+        <div class="col-md-5">
+            <h4 class="text-center header page-header">{{ user.name|e }}</h4>
+            <p class="text-center">Joined on {{ user.joined_on.ctime()|e }}</p>
         </div>
-        <div class="col-md-2"></div>
+        <div class="col-md-1"></div>
+    </div><br>
+
+    <div class="row">
+        {% if user.galleries | count > 0 %}
+                {% for gallery in user.galleries %}
+                <a href="#" style="border: 1px solid cornflowerblue; box-shadow: 0 0 3px 3px #3c3c3c">
+                    <div class="row">
+                        <div class="col-sm-4 text-info">{{ gallery.title|e }}</div>
+                        <div class="col-sm-4 text-center">
+                            Created on {{ gallery.created_on.ctime()|e }}<br>
+                            Updated on {{ gallery.updated_on.ctime()|e }}
+                        </div>
+                        <div class="col-sm-4">
+                            <a href="#" class="btn btn-info center-block">Edit</a>
+                        </div>
+                    </div>
+                </a><br>
+                {% endfor %}
+            {% else %}
+            <p class="text-center">No photo gallery created yet!</p>
+            {% endif %}
     </div>
 </div>
         {% else %}
