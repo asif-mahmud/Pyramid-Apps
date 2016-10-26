@@ -32,8 +32,10 @@ class UserProfile(object):
     def add_profile_picture(self):
         if 'form.submitted' in self.request.params:
             img = ProfilePicture()
-            img.from_file_obj(self.request.POST['file'].file)
-            img.add_thumbnail((300, 400))
+            check = img.from_file_obj(self.request.POST['file'].file)
+            if check is None:
+                return dict()
+            img.add_thumbnail((128, 128))
             if self.request.user.profile_picture:
                 del self.request.user.profile_picture
             self.request.user.profile_picture = img

@@ -47,8 +47,8 @@ class BaseImage(object):
         """Tries to download the file to ``temporary`` folder.
 
         Returns:
-            ``None`` if does not succeed else the base file name in the
-            ``temporary`` folder.
+            ``None`` if does not succeed else the full file path of the
+            ``temporary`` file.
         """
         if globalvars.image_storage is None:
             raise OSError('No Image storage')
@@ -82,6 +82,8 @@ class BaseImage(object):
             vstatus = self.validate(temp_filename=filename)
             if vstatus is not None:
                 self.basename = basename
+            else:
+                return None
 
         return filename
 

@@ -31,7 +31,7 @@ tests_require = [
     ]
 
 setup(name='imageupload',
-      version='1.0.0',
+      version='1.1.0',
       description='imageupload',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
