@@ -17,6 +17,7 @@ from .validator import (
 
 from .user import (
     User,
+    ProfilePicture,
 )
 
 # run configure_mappers after defining all of the models to ensure

@@ -3,11 +3,16 @@ from imageupload.models import (
     BaseValidator,
     ValidationStatus,
 )
+from imageupload.models.storage.image import BaseImage
 from sqlalchemy import (
     Column,
     Integer,
     Text,
     ARRAY,
+    ForeignKey,
+)
+from sqlalchemy.orm import (
+    relationship,
 )
 from bcrypt import (
     hashpw,
@@ -22,6 +27,13 @@ class User(Base, BaseValidator):
     name = Column(Text, unique=True, nullable=False, index=True)
     _password_hash = Column(Text, nullable=False)
     roles = Column(ARRAY(Text), default=['user', ])
+
+    profile_picture = relationship(
+        "ProfilePicture",
+        back_populates='user',
+        cascade='all, delete-orphan',
+        uselist=False,
+    )
 
     def validate(self,
                  dbsession,
@@ -76,3 +88,16 @@ class User(Base, BaseValidator):
             pw.encode(encoding='utf-8'),
             self._password_hash.encode(encoding='utf-8')
         )
+
+
+class ProfilePicture(BaseImage, Base):
+
+    __tablename__ = 'profile_pictures'
+    id = Column(Integer, primary_key=True)
+
+    user_id = Column(Integer, ForeignKey(User.id), nullable=False)
+
+    user = relationship(
+        "User",
+        back_populates='profile_picture',
+    )

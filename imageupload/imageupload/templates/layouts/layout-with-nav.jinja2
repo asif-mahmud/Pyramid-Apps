@@ -18,6 +18,7 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
+                        <li><a href="{{ request.route_url('show_profile', id=request.user.id) }}">Profile</a></li>
                         <li><a href="{{ request.route_url('logout') }}">Logout</a></li>
                     </ul>
                 </li>

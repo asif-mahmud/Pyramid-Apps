@@ -1,4 +1,11 @@
-from imageupload.models.storage import BaseStorageInfo
+from . import globalvars
+from .. import BaseStorageInfo
+from .base import (
+    BaseImageQuery,
+    BaseImage,
+)
+from sqlalchemy.event import listen
+from sqlalchemy.orm import Session
 
 
 class ImageStorageInfo(BaseStorageInfo):
@@ -7,12 +14,12 @@ class ImageStorageInfo(BaseStorageInfo):
     _prefix = 'images'
 
 
-"""This may be the single most important variable for the image storage."""
-image_storage = None
-
-
 def includeme(config):
-    global image_storage
     settings = config.get_settings()
-    image_storage = ImageStorageInfo(settings['storage.image_dir'])
-    config.add_static_view('images', image_storage.persistent, cache_max_age=3600)
+    globalvars.image_storage = ImageStorageInfo(settings['storage.image_dir'])
+    config.add_static_view('images', globalvars.image_storage.persistent, cache_max_age=3600)
+
+    listen(BaseImage, 'after_insert', BaseImageQuery.after_insert, propagate=True)
+    listen(BaseImage, 'after_delete', BaseImageQuery.after_delete, propagate=True)
+    listen(Session, 'after_soft_rollback', BaseImageQuery.after_soft_rollback)
+    listen(Session, 'after_commit', BaseImageQuery.after_commit)

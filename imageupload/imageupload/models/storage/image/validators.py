@@ -5,7 +5,7 @@ import numpy as np
 class ImageValidatorStatus(object):
     """Return type of any ``validator``.
 
-    Attributes:
+    Properties:
         size(tuple(int, int) or list(int, int)): Original/Output size
 
         type(str): Output codec for ``imageio``
@@ -76,6 +76,34 @@ class BaseValidator(object):
         raise NotImplementedError
 
 
+class GIFValidator(BaseValidator):
+    """Validates ``GIF`` single frame or animation."""
+
+    def validate(self):
+        vstatus = ImageValidatorStatus()
+        try:
+            reader = imageio.get_reader(self._temp_filename)
+            if reader.format.name == 'GIF':
+                if reader.get_length() >= 1:
+                    frame = reader.get_data(0)
+                    vstatus.size = (
+                        frame.shape[1],     # it's a numpy array so width, height == height, width
+                        frame.shape[0]
+                    )
+                    if reader.get_length() == 1: # it's a single frame GIF
+                        vstatus.type = 'JPEG'
+                        vstatus.extension = 'jpg'
+                    else:
+                        vstatus.type = 'FFMPEG'
+                        vstatus.extension = 'mp4'
+            reader.close()
+        except Exception:
+            return None
+        if vstatus.type is None:
+            return None
+        return vstatus
+
+
 class JPEGValidator(BaseValidator):
     """Validates ``JPEG`` format."""
 
@@ -87,8 +115,8 @@ class JPEGValidator(BaseValidator):
                 if reader.get_length() == 1:
                     frame = reader.get_data(0)
                     vstatus.size = (
-                        frame.shape[0],
-                        frame.shape[1],
+                        frame.shape[1],  # it's a numpy array so width, height == height, width
+                        frame.shape[0]
                     )
                     vstatus.extension = 'jpg'
                     vstatus.type = 'JPEG'
@@ -111,8 +139,8 @@ class PNGValidator(BaseValidator):
                 if reader.get_length() == 1:
                     frame = reader.get_data(0)
                     vstatus.size = (
-                        frame.shape[0],
-                        frame.shape[1],
+                        frame.shape[1],  # it's a numpy array so width, height == height, width
+                        frame.shape[0]
                     )
                     if not np.all(frame.any(axis=2)):
                         vstatus.type = 'JPEG'
@@ -126,51 +154,3 @@ class PNGValidator(BaseValidator):
         if vstatus.type is None:
             return None
         return vstatus
-
-
-class GIFValidator(BaseValidator):
-    """Validates ``GIF`` single frame or animation."""
-
-    def validate(self):
-        vstatus = ImageValidatorStatus()
-        try:
-            reader = imageio.get_reader(self._temp_filename)
-            if reader.format.name == 'GIF':
-                if reader.get_length() >= 1:
-                    frame = reader.get_data(0)
-                    vstatus.size = (
-                        frame.shape[0],
-                        frame.shape[1]
-                    )
-                    if reader.get_length() == 1: # it's a single frame GIF
-                        vstatus.type = 'JPEG'
-                        vstatus.extension = 'jpg'
-                    else:
-                        vstatus.type = 'FFMPEG'
-                        vstatus.extension = 'mp4'
-            reader.close()
-        except Exception:
-            return None
-        if vstatus.type is None:
-            return None
-        return vstatus
-
-
-SUPPORTED_IMG_TYPES = (
-    'JPEG',
-    'PNG',
-    'GIF',
-)
-SUPPORTED_IMG_VALIDATORS = dict(
-    JPEG=JPEGValidator,
-    PNG=PNGValidator,
-    GIF=GIFValidator,
-)
-
-
-def get_validator_status(temp_filename):
-    for img_type in SUPPORTED_IMG_TYPES:
-        validator = SUPPORTED_IMG_VALIDATORS[img_type](temp_filename)
-        vstatus = validator.validate()
-        if vstatus is not None:
-            return vstatus

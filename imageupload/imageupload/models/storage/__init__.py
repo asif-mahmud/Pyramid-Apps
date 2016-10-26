@@ -56,7 +56,7 @@ class BaseStorageInfo(object, metaclass=StorageSingleton):
             self.prefix,
             self._temporary
         )
-        self.__temporary_path = Path(temp_dir).resolve()
+        self.__temporary_path = Path(temp_dir).absolute()
         if not self.__temporary_path.exists():
             self.__temporary_path.mkdir(parents=True)
 
@@ -65,7 +65,7 @@ class BaseStorageInfo(object, metaclass=StorageSingleton):
             self.prefix,
             self._persistent,
         )
-        self.__persistent_path = Path(persistent_dir).resolve()
+        self.__persistent_path = Path(persistent_dir).absolute()
         if not self.__persistent_path.exists():
             self.__persistent_path.mkdir(parents=True)
 
