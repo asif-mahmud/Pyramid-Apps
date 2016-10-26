@@ -46,6 +46,7 @@ class GalleryImage(Base, BaseImage):
     __tablename__ = 'gallery_images'
     id = Column(Integer, primary_key=True)
     gallery_id = Column(Integer, ForeignKey(Gallery.id), nullable=False)
+    uploaded_on = Column(DateTime, default=datetime.now)
 
     gallery = relationship(
         "Gallery",
