@@ -19,6 +19,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="{{ request.route_url('show_profile', id=request.user.id) }}">Profile</a></li>
+                        <li><a href="{{ request.route_url('add_gallery') }}">Create Gallery</a></li>
                         <li><a href="{{ request.route_url('logout') }}">Logout</a></li>
                     </ul>
                 </li>

@@ -12,9 +12,13 @@ from imageupload.models import Base, User
 from imageupload.models.storage.image import BaseImage
 from sqlalchemy import func
 from pyramid.compat import escape
+from ..validator import (
+    ValidationStatus,
+    BaseValidator,
+)
 
 
-class Gallery(Base):
+class Gallery(Base, BaseValidator):
 
     __tablename__ = 'galleries'
     id = Column(Integer, primary_key=True)
@@ -39,6 +43,19 @@ class Gallery(Base):
 
     def __repr__(self):
         return escape(self.title)
+
+    def validate(self,
+                 title=None,
+                 description=None):
+        vstatus = ValidationStatus()
+        if title is None:
+            title = self.title
+        if description is None:
+            description = self.description
+        if len(title) == 0 or len(description) == 0:
+            vstatus.success = False
+            vstatus.msg_stack = 'Title or description can not be empty!'
+        return vstatus
 
 
 class GalleryImage(Base, BaseImage):

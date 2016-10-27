@@ -1,6 +1,11 @@
 from pyramid.view import view_config
+from imageupload.models.gallery import (
+    Gallery,
+    GalleryImage,
+)
+from pyramid.httpexceptions import HTTPFound
 
-"""
+
 class GalleryView(object):
 
     def __init__(self, request):
@@ -10,12 +15,37 @@ class GalleryView(object):
                  renderer='../templates/add_gallery.jinja2',
                  permission='add_gallery')
     def add_gallery(self):
+        if 'form.submitted' in self.request.params:
+            title = self.request.params['title']
+            desc = self.request.params['description']
+            gallery = Gallery(title=title, description=desc)
+            vstatus = gallery.validate()
+            if not vstatus.success:
+                return dict(
+                    error_msg=vstatus.msg_stack,
+                    title=title,
+                    description=desc,
+                )
+            gallery.user = self.request.user
+            self.request.dbsession.add(gallery)
+            return HTTPFound(
+                location=self.request.route_url('show_profile', id=self.request.user.id)
+            )
         return dict()
 
     @view_config(route_name='delete_gallery',
                  permission='delete_gallery')
     def delete_gallery(self):
-        return dict()
+        id = self.request.matchdict['id']
+        gallery = self.request.dbsession.query(
+            Gallery
+        ).filter_by(
+            id=id,
+        ).first()
+        self.request.dbsession.delete(gallery)
+        return HTTPFound(
+            location=self.request.route_url('show_profile', id=self.request.user.id)
+        )
 
     @view_config(route_name='edit_gallery',
                  renderer='../templates/edit_gallery.jinja2',
@@ -33,4 +63,4 @@ class GalleryView(object):
                  permission='upload_photos')
     def upload_photos(self):
         return dict()
-"""
+

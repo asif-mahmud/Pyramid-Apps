@@ -24,21 +24,28 @@
     <div class="row">
         {% if user.galleries | count > 0 %}
                 {% for gallery in user.galleries %}
-                <a href="#" style="border: 1px solid cornflowerblue; box-shadow: 0 0 3px 3px #3c3c3c">
-                    <div class="row">
-                        <div class="col-sm-4 text-info">{{ gallery.title|e }}</div>
-                        <div class="col-sm-4 text-center">
-                            Created on {{ gallery.created_on.ctime()|e }}<br>
-                            Updated on {{ gallery.updated_on.ctime()|e }}
-                        </div>
-                        <div class="col-sm-4">
-                            <a href="#" class="btn btn-info center-block">Edit</a>
-                        </div>
+                <div class="row" style="box-shadow: 0 0 3px 3px #3c3c3c; background-color: beige">
+                    <div class="col-sm-4">
+                        <a href="{{ request.route_url('show_gallery', id=gallery.id) }}">{{ gallery.title|e }}</a><br>
+                        <p>{{ gallery.description }}</p>
                     </div>
-                </a><br>
+                    <div class="col-sm-4 text-center">
+                        Created on {{ gallery.created_on.date()|e }}<br>
+                        Updated on {{ gallery.updated_on.date()|e }}
+                    </div>
+                    <div class="col-sm-2">
+                        <a href="{{ request.route_url('edit_gallery', id=gallery.id) }}" >Edit</a>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-danger btn-sm center-block">
+                            <a href="{{ request.route_url('delete_gallery', id=gallery.id) }}" style="color: #0f0f0f">Delete</a>
+                        </button>
+                    </div>
+                </div><br>
                 {% endfor %}
             {% else %}
             <p class="text-center">No photo gallery created yet!</p>
+            <a href="{{ request.route_url('add_gallery') }}" class="btn btn-info center-block">Create one now</a>
             {% endif %}
     </div>
 </div>
