@@ -74,6 +74,8 @@ class BaseImage(object):
             with open(filename, 'wb') as output_file:
                 shutil.copyfileobj(file_obj, output_file)
         except Exception as err:
+            if os.path.exists(filename):
+                os.remove(filename)
             return None
 
         if validate:
@@ -81,6 +83,8 @@ class BaseImage(object):
             if vstatus is not None:
                 self.basename = basename
             else:
+                if os.path.exists(filename):
+                    os.remove(filename)
                 return None
 
         return filename

@@ -2,6 +2,7 @@ from imageupload.security.authorizaton import BaseAuth
 from pyramid.security import (
     Allow,
     Authenticated,
+    DENY_ALL,
 )
 
 
@@ -23,9 +24,14 @@ class GalleryAuth(object):
         class AuthDeleteGallery(BaseAuth):
 
             def __acl__(self):
-                return [
-                    (Allow, str(self.request.user.id), 'delete_gallery'),
-                    (Allow, str(self.request.user.id), 'edit_gallery'),
-                    (Allow, str(self.request.user.id), 'upload_photos'),
-                ]
+                if self.request.user is not None:
+                    return [
+                        (Allow, str(self.request.user.id), 'delete_gallery'),
+                        (Allow, str(self.request.user.id), 'edit_gallery'),
+                        (Allow, str(self.request.user.id), 'upload_photos'),
+                    ]
+                else:
+                    return [
+                        DENY_ALL,
+                    ]
         return AuthDeleteGallery(request)

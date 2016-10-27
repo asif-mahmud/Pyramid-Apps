@@ -68,7 +68,8 @@ class GalleryView(object):
         )
 
     @view_config(route_name='upload_photos',
-                 permission='upload_photos')
+                 permission='upload_photos',
+                 renderer='../templates/upload_photos.jinja2')
     def upload_photos(self):
         return dict()
 

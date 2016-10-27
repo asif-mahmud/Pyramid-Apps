@@ -4,7 +4,23 @@
 <div class="container">
     <div class="row">
         {% if gallery %}
-        <h3 class="page-header">{{ gallery.title }}</h3>
+        <h3 class="page-header text-center">{{ gallery.title|e }}</h3>
+        <p class="text-center text-info">{{ gallery.description|e }}</p>
+        <p class="text-center">Created on {{ gallery.created_on.date()|e }}</p>
+        <p class="text-center">Last updated on {{ gallery.updated_on.date()|e }}</p>
+        {% endif %}
+    </div><br>
+    <div class="row">
+        {% if gallery.images | length > 0 %}
+            {% for img in gallery.images %}
+                {% if img.image_type == 'FFMPEG' %}
+        <video src="{{ request.static_url(img.get_url()) }}" autoplay loop class="img-thumbnail" width="500px" height="400px"></video>
+                {% else %}
+        <img src="{{ request.static_url(img.get_url()) }}" class="img-thumbnail" width="500px" height="400px" alt="Could not load image">
+                {% endif %}
+            {% endfor %}
+        {% else %}
+        <p class="text-info text-center">No image uploaded yet. <a href="{{ request.route_url('upload_photos', id=gallery.id) }}">Upload some now.</a> </p>
         {% endif %}
     </div>
 </div>
