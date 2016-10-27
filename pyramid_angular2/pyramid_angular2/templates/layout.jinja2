@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="{{request.locale_name}}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="pyramid web application">
+    <meta name="author" content="Pylons Project">
+
+    <title>Alchemy Scaffold for The Pyramid Web Framework</title>
+
+  <script src="{{ request.static_url('pyramid_angular2:node_modules/es6-shim/es6-shim.js') }}"></script>
+  <script src="{{ request.static_url('pyramid_angular2:node_modules/zone.js/dist/zone.js') }}"></script>
+  <script src="{{ request.static_url('pyramid_angular2:node_modules/reflect-metadata/Reflect.js') }}"></script>
+  <script src="{{ request.static_url('pyramid_angular2:node_modules/systemjs/dist/system.src.js') }}"></script>
+
+  </head>
+
+  <body>
+  {% block PageContent %}
+  
+  {% endblock %}
+  </body>
+</html>

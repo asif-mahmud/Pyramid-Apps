@@ -1,0 +1,9 @@
+{% extends 'layout.jinja2' %}
+
+{% block PageContent %}
+<script src="static/js/systemjs.config.js"></script>
+    <script>
+        System.import('ngapp/app.js') .then(null, console.error.bind(console));
+    </script>
+<hello-world></hello-world>
+{% endblock %}
