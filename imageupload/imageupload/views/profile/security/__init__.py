@@ -2,6 +2,7 @@ from imageupload.security.authorizaton import BaseAuth
 from pyramid.security import (
     Allow,
     Authenticated,
+    DENY_ALL,
 )
 
 
@@ -22,7 +23,12 @@ class ProfileAuth(object):
         class AddPP(BaseAuth):
 
             def __acl__(self):
-                return [
-                    (Allow, str(request.user.id), 'add_profile_picture'),
-                ]
+                if self.request.user is not None:
+                    return [
+                        (Allow, str(request.user.id), 'add_profile_picture'),
+                    ]
+                else:
+                    return [
+                        DENY_ALL,
+                    ]
         return AddPP(request)

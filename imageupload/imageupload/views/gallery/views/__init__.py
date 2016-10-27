@@ -51,7 +51,29 @@ class GalleryView(object):
                  renderer='../templates/edit_gallery.jinja2',
                  permission='edit_gallery')
     def edit_gallery(self):
-        return dict()
+        gallery = self.request.dbsession.query(
+            Gallery,
+        ).filter_by(
+            id=self.request.matchdict['id'],
+        ).first()
+        if 'form.submitted' in self.request.params:
+            vstatus = gallery.validate(
+                title=self.request.params['title'],
+                description=self.request.params['description'],
+            )
+            if not vstatus.success:
+                return dict(
+                    error_msg=vstatus.msg_stack,
+                    gallery=gallery,
+                )
+            gallery.title = self.request.params['title']
+            gallery.description = self.request.params['description']
+            return HTTPFound(
+                location=self.request.route_url('show_profile', id=self.request.user.id)
+            )
+        return dict(
+            gallery=gallery,
+        )
 
     @view_config(route_name='show_gallery',
                  renderer='../templates/show_gallery.jinja2',
@@ -71,5 +93,31 @@ class GalleryView(object):
                  permission='upload_photos',
                  renderer='../templates/upload_photos.jinja2')
     def upload_photos(self):
+        if 'form.submitted' in self.request.params:
+            files = self.request.POST.getall('files')
+            gallery = self.request.dbsession.query(
+                Gallery,
+            ).filter_by(
+                id=self.request.matchdict['id'],
+            ).first()
+            if gallery is None:
+                return dict()
+            for img in files:
+                try:
+                    img.file
+                except AttributeError:
+                    continue
+                g_img = GalleryImage()
+                check = g_img.from_file_obj(img.file)
+                if check is None:
+                    continue
+                g_img.gallery = gallery
+                self.request.dbsession.add(g_img)
+            return HTTPFound(
+                location=self.request.route_url(
+                    'show_gallery',
+                    id=self.request.matchdict['id'],
+                )
+            )
         return dict()
 

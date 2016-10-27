@@ -28,6 +28,13 @@
                     <div class="col-sm-4">
                         <a href="{{ request.route_url('show_gallery', id=gallery.id) }}">{{ gallery.title|e }}</a><br>
                         <p>{{ gallery.description }}</p>
+                        <p>{{ gallery.images|length }}
+                            {% if gallery.images|length > 0 %}
+                            photos
+                            {% else %}
+                            photo
+                            {% endif %}
+                        </p>
                     </div>
                     <div class="col-sm-4 text-center">
                         Created on {{ gallery.created_on.date()|e }}<br>
