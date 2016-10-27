@@ -57,7 +57,15 @@ class GalleryView(object):
                  renderer='../templates/show_gallery.jinja2',
                  permission='show_gallery')
     def show_gallery(self):
-        return dict()
+        id = self.request.matchdict['id']
+        gallery = self.request.dbsession.query(
+            Gallery
+        ).filter_by(
+            id=id,
+        ).first()
+        return dict(
+            gallery=gallery,
+        )
 
     @view_config(route_name='upload_photos',
                  permission='upload_photos')
