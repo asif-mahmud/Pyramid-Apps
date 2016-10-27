@@ -20,7 +20,7 @@ class PNGValidator(BaseValidator):
                         frame.shape[1],  # it's a numpy array so width, height == height, width
                         frame.shape[0]
                     )
-                    if not np.all(frame.any(axis=2)):
+                    if np.all(frame.any(axis=2)):   # no true transparent area
                         vstatus.type = 'JPEG'
                         vstatus.extension = 'jpg'
                     else:

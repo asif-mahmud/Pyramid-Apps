@@ -22,6 +22,7 @@ requires = [
     'psycopg2',
     'alembic',
     'numpy',
+    'wand',
     ]
 
 tests_require = [

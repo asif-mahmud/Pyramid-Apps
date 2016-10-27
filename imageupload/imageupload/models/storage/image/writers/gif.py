@@ -1,6 +1,6 @@
 from .base import BaseImageWriter
 import imageio
-import cv2
+from wand.image import Image
 
 
 class GIFWriter(BaseImageWriter):
@@ -15,25 +15,18 @@ class GIFWriter(BaseImageWriter):
     def __process_png(self):
         for size in self.pending_sizes:
             output_filename = self.get_output_filename(size)
-            writer = imageio.get_writer(
-                output_filename,
-                format='GIF',
-            )
-            frame = self.input_reader.get_data(0)
+            input_img = Image(filename=self.input_filename)
+
             if size != self.max_size:
-                frame = cv2.resize(frame, size)
-            writer.append_data(frame)
-            writer.close()
+                input_img.resize(width=size[0], height=size[1])
+            input_img.convert('GIF')
+            input_img.save(filename=output_filename)
 
     def __process_gif(self):
         for size in self.pending_sizes:
             output_filename = self.get_output_filename(size)
-            writer = imageio.get_writer(
-                output_filename,
-                format='GIF',
-            )
-            frame = self.input_reader.get_data(0)   # it's a single frame image
+            input_img = Image(filename=self.input_filename)
+
             if size != self.max_size:
-                frame = cv2.resize(frame, size)
-            writer.append_data(frame)
-            writer.close()
+                input_img.resize(width=size[0], height=size[1])
+            input_img.save(filename=output_filename)
