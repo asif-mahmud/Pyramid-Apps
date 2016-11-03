@@ -18,6 +18,6 @@ Target
 This app will demonstrate -
 
 - User login
-- Angular Http, XSRF and ajax
+- Angular Http, XSRF and ajax 
 - Angular Form validation
 - Semantic UI
