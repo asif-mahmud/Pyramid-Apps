@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="{{request.locale_name}}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="pyramid web application">
+    <meta name="author" content="Pylons Project">
+
+    <title>{% block PageTitle %}Pyramid Ring Scaffold{% endblock %}</title>
+
+    <script src="/ngmodules/core-js/client/shim.min.js"></script>
+    <script src="/ngmodules/zone.js/dist/zone.js"></script>
+    <script src="/ngmodules/reflect-metadata/Reflect.js"></script>
+    <script src="/ngmodules/systemjs/dist/system.src.js"></script>
+
+    {% block JsFiles %}{% endblock %}
+
+    <link rel="stylesheet" href="/ngsrc/semantic/dist/semantic.min.css">
+
+    {% block CssFiles %}{% endblock %}
+  </head>
+
+  <body>
+
+    {% block PageContent %}{% endblock %}
+
+    <!-- 2. Configure SystemJS -->
+    <!-- script src="systemjs.config.js"></script>
+    <script>
+      System.import('app').catch(function(err){ console.error(err); });
+    </script -->
+  </body>
+</html>
