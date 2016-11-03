@@ -1,0 +1,16 @@
+{% extends './layout.jinja2' %}
+
+{% block PageNavigation %}
+<style>
+.ui.menu.grid>.computer.only.row {
+    padding:0;
+}
+</style>
+<div class="ui grid">
+    <div class="tablet computer only row">
+        <div class="ui top fixed blue menu">
+            <a class="right aligned item" href="{{ request.route_url('home') }}">{{ 'home'|upper }}</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

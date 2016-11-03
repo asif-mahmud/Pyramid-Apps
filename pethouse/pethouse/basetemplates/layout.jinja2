@@ -21,9 +21,13 @@
     {% block CssFiles %}{% endblock %}
   </head>
 
-  <body>
+  <body style="padding-top: 70px;">
 
-    {% block PageContent %}{% endblock %}
+    <div class="ui container">
+        {% block PageNavigation %}{% endblock %}
+        {% block PageContent %}{% endblock %}
+    </div>
+
 
     <!-- 2. Configure SystemJS -->
     <!-- script src="systemjs.config.js"></script>
