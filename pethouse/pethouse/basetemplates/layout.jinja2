@@ -13,6 +13,7 @@
     <script src="/ngmodules/zone.js/dist/zone.js"></script>
     <script src="/ngmodules/reflect-metadata/Reflect.js"></script>
     <script src="/ngmodules/systemjs/dist/system.src.js"></script>
+    <script src="/ngsrc/systemjs.config.js"></script>
 
     {% block JsFiles %}{% endblock %}
 
@@ -21,11 +22,14 @@
     {% block CssFiles %}{% endblock %}
   </head>
 
-  <body style="padding-top: 70px;">
+  <body >
+    <div class="ui inverted sidebar vertical menu">
+    {% block MobilePageNavigation %}{% endblock %}
+    </div>
+    <div class="pusher" style="padding-top: 70px;">
+    {% block ComputerPageNavigation %}{% endblock %}
 
-    <div class="ui container">
-        {% block PageNavigation %}{% endblock %}
-        {% block PageContent %}{% endblock %}
+    {% block PageContent %}{% endblock %}
     </div>
 
 

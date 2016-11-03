@@ -1,7 +1,8 @@
 {% extends 'basetemplates/layout-with-nav.jinja2' %}
 
 {% block PageContent %}
-<div class="ui container">
-    <h1 class="ui center aligned header">Welcome to Pet House</h1>
-</div>
+<register-or-login></register-or-login>
+<script>
+    System.import("homeapp").catch(function(err){ console.error(err); });
+</script>
 {% endblock %}
