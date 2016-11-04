@@ -3,7 +3,6 @@
  */
 import {Component} from "@angular/core";
 
-
 @Component({
     selector:'register-or-login',
     templateUrl:'/ngapps/home/unauthenticated-home.html',

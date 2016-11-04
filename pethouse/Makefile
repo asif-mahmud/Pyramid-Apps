@@ -12,12 +12,10 @@ setup:
 	cd ${PROJECT_PATH}/${PROJECT_NAME}/ngsrc/semantic && gulp build
 
 tsc:
-	cd ${PROJECT_PATH}/${PROJECT_NAME}/ngsrc
-	npm run tsc
+	cd ${PROJECT_PATH}/${PROJECT_NAME}/ngsrc && npm run tsc
 
 tscw:
-	cd ${PROJECT_PATH}/${PROJECT_NAME}/ngsrc
-	npm run tscw
+	cd ${PROJECT_PATH}/${PROJECT_NAME}/ngsrc &&	npm run tsc:w
 
 revision:
 	@read -p "What did you add? " MSG && \

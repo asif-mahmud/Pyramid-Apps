@@ -1,0 +1,45 @@
+<h3 class="ui center aligned header">Register</h3>
+<form class="ui form" #userRegForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="field" [class.error]="!name.pristine && name.valid && isEmptyName">
+        <div class="ui labeled input">
+            <div class="ui label"><i class="green user icon"></i> Username</div>
+            <input type="text" placeholder="John" required name="username" [(ngModel)]="user.username" #name="ngModel">
+        </div>
+        <div class="ui error message" [class.visible]="!name.pristine && name.valid && isEmptyName">Username must not be empty.</div>
+    </div>
+    <div class="two fields" [class.disabled]="name.invalid || isEmptyName" >
+        <div class="field" [class.error]="!first_name.pristine && first_name.valid && isFirstNameEmpty">
+            <div class="ui labeled input">
+                <div class="ui label">First Name</div>
+                <input type="text" placeholder="John" required name="first_name" [(ngModel)]="user.first_name" #first_name="ngModel">
+            </div>
+            <div class="ui error message" [class.visible]="!first_name.pristine && first_name.valid && isFirstNameEmpty">First name must not be empty.</div>
+        </div>
+        <div class="field" [class.error]="!last_name.pristine && last_name.valid && isLastNameEmpty">
+            <div class="ui labeled input">
+                <div class="ui label">Last Name</div>
+                <input type="text" placeholder="Wick" required name="last_name" [(ngModel)]="user.last_name" #last_name="ngModel">
+            </div>
+            <div class="ui error message" [class.visible]="!last_name.pristine && last_name.valid && isLastNameEmpty">Last name must not be empty.</div>
+        </div>
+    </div>
+
+    <div class="field" [class.disabled]="first_name.invalid||last_name.invalid|| isFirstNameEmpty || isLastNameEmpty" [class.error]="!password.pristine && password.valid && isPasswordEmpty">
+        <div class="ui labeled input">
+            <div class="ui label"><i class="red privacy icon"></i> Password</div>
+            <input type="password" required name="password" [(ngModel)]="user.password" #password="ngModel">
+        </div>
+        <div class="ui error message" [class.visible]="!password.pristine && password.valid && isPasswordEmpty">Password must not be empty.</div>
+    </div>
+
+    <div class="field" [class.disabled]="password.invalid || isPasswordEmpty" [class.error]="!password_retype.pristine && password_retype.valid && isPasswordRetypeEmpty">
+        <div class="ui labeled input">
+            <div class="ui label"><i class="red protect icon"></i> Re-type Password</div>
+            <input type="password" required name="password_retype" [(ngModel)]="user.password_retype" #password_retype="ngModel">
+        </div>
+        <div class="ui error message" [class.visible]="password_retype.value!==password.value">Password mismatched.</div>
+    </div>
+    <div class="ui centered grid field">
+        <button class="ui facebook button" type="submit" [disabled]="!userRegForm.form.valid"><i class="add user icon"></i> Register</button>
+    </div>
+</form>

@@ -1,0 +1,18 @@
+<h3 class="ui center aligned header">Login</h3>
+<form class="ui form" #loginForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="field" [class.error]="!name.pristine && name.valid && isNameEmpty">
+        <div class="ui labeled input">
+            <div class="ui blue label"><i class="user icon"></i> Username</div>
+            <input type="text" required name="name" [(ngModel)]="user.username" #name="ngModel" placeholder="John">
+        </div>
+    </div>
+    <div class="field" [class.disabled]="name.invalid || isNameEmpty" [class.error]="!password.pristine && password.valid && isPasswordEmpty">
+        <div class="ui labeled input">
+            <div class="ui blue label"><i class="privacy icon"></i> Password</div>
+            <input type="password" required name="password" [(ngModel)]="user.password" #password="ngModel">
+        </div>
+    </div>
+    <div class="ui centered grid field">
+        <button type="submit" class="ui facebook button" [disabled]="loginForm.invalid"><i class="sign in icon"></i> Login</button>
+    </div>
+</form>
