@@ -1,5 +1,11 @@
 <h3 class="ui center aligned header">Register</h3>
 <form class="ui form" #userRegForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="ui error message" [class.visible]="submitted&&!vstatus.success">
+        <p *ngFor="let msg of vstatus.msg_stack">{{msg}}</p>
+    </div>
+    <div class="ui positive message" [class.hidden]="!submitted||!vstatus.success">
+        <p *ngFor="let msg of vstatus.msg_stack">{{msg}}</p>
+    </div>
     <div class="field" [class.error]="!name.pristine && name.valid && isEmptyName">
         <div class="ui labeled input">
             <div class="ui label"><i class="green user icon"></i> Username</div>

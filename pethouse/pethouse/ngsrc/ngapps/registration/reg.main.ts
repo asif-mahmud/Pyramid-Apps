@@ -1,10 +1,10 @@
 /**
- * Created by shimon on 11/3/16.
+ * Created by shimon on 11/7/16.
  */
 import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
 //import {enableProdMode} from "@angular/core";
-import {HomePageModule} from "./home.module";
+import {RegistrationModule} from "./reg.module";
 
 //enableProdMode();
 var homePage = platformBrowserDynamic();
-homePage.bootstrapModule(HomePageModule);
+homePage.bootstrapModule(RegistrationModule);

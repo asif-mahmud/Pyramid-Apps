@@ -19,6 +19,7 @@ requires = [
     'waitress',
     'bcrypt',
     'alembic',
+    'psycopg2',
     ]
 
 tests_require = [

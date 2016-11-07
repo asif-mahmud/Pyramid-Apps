@@ -1,5 +1,5 @@
 from pyramid.authentication import AuthTktAuthenticationPolicy
-from imageupload.models import User
+from pethouse.models.user import User
 from pyramid.security import (
     Everyone,
     Authenticated,
@@ -20,6 +20,7 @@ class BlogSiteAuthPolicy(AuthTktAuthenticationPolicy):
             for role in request.user.roles:
                 principals.append(role)
         return principals
+
 
 def get_user(request):
     user_id = request.unauthenticated_userid

@@ -3,19 +3,26 @@
  */
 import {Component} from "@angular/core";
 import {UserModel} from "./user";
+import {Http, Response, Headers, RequestOptions} from "@angular/http";
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+//import 'rxjs/add/operator/throw';
 
 
 @Component({
     selector:'registration-form',
-    templateUrl:'/ngapps/home/registration.html'
+    templateUrl:'/ngapps/registration/registration.html'
 })
-export class HomeRegistrationForm{
+export class RegistrationForm{
     user:UserModel;
     submitted:boolean;
+    vstatus: JSON;
 
-    constructor(){
+    constructor(private http:Http){
         this.user = new UserModel('', '', '', '', '');
         this.submitted = false;
+        this.vstatus ={"success":false, "msg_stack":[]};
     }
 
     get isEmptyName(){
@@ -50,7 +57,16 @@ export class HomeRegistrationForm{
     }
 
     onSubmit(){
+        let headers = new Headers({"Content-Type":"application/json"});
+        let options = new RequestOptions({headers:headers});
+        this.http.post('register', JSON.stringify(this.user), options)
+                        .map(response => {return response.json();})
+                        .subscribe(
+                            vstatus => this.vstatus = vstatus,
+                            error => console.log(error)
+                        );
         this.submitted = true;
+        console.log(this.vstatus);
         console.log(this.diagnostic);
         return false;
     }

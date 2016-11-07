@@ -6,7 +6,7 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
-        $('.ui.sidebar').sidebar('attach events', '#right-sidebar-toggler');
+        $('.ui.sidebar').sidebar('attach events', '#left-sidebar-toggler');
     });
 
 </script>
@@ -14,18 +14,38 @@
 
 {% block MobilePageNavigation %}
 <a class="item" href="{{ request.route_url('home') }}"><i class="home icon"></i> {{ 'home'|upper }}</a>
+{% if request.user %}
+<a class="item" href="{{ request.route_url('show_profile',id=request.user.id) }}">
+    <i class="user icon"></i>
+    {{ 'profile'|upper }}
+</a>
+<a class="item" href="{{ request.route_url('logout') }}">
+    <i class="sign out icon"></i>
+    {{ 'logout'|upper }}
+</a>
+{% endif %}
 {% endblock %}
 
 {% block ComputerPageNavigation %}
 <div class="ui grid">
     <div class="tablet computer only row">
-        <div class="ui top fixed menu">
-            <a class="right aligned item" href="{{ request.route_url('home') }}"><i class="home icon"></i> {{ 'home'|upper }}</a>
+        <div class="ui top fixed right menu">
+            <a class="right item" href="{{ request.route_url('home') }}"><i class="home icon"></i> {{ 'home'|upper }}</a>
+            {% if request.user %}
+            <a class="item" href="{{ request.route_url('show_profile',id=request.user.id) }}">
+                <i class="user icon"></i>
+                {{ 'profile'|upper }}
+            </a>
+            <a class="item" href="{{ request.route_url('logout') }}">
+                <i class="sign out icon"></i>
+                {{ 'logout'|upper }}
+            </a>
+            {% endif %}
         </div>
     </div>
     <div class="mobile only row">
         <div class="ui top fixed menu">
-            <button id="right-sidebar-toggler" class="ui button item"><i class="list layout icon"></i>Menu</button>
+            <button id="left-sidebar-toggler" class="ui button item"><i class="list layout icon"></i>Menu</button>
         </div>
     </div>
 </div>

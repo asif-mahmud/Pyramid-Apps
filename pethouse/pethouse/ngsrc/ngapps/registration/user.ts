@@ -10,10 +10,3 @@ export class UserModel{
       public password_retype:string
     ){}
 }
-
-export class UserLoginModel{
-    constructor(
-        public username:string,
-        public password:string
-    ){}
-}
