@@ -13,7 +13,10 @@
 {% endblock %}
 
 {% block MobilePageNavigation %}
-<a class="item" href="{{ request.route_url('home') }}"><i class="home icon"></i> {{ 'home'|upper }}</a>
+<a class="item" href="{{ request.route_url('home') }}">
+    <i class="home icon"></i>
+    {{ 'home'|upper }}
+</a>
 {% if request.user %}
 <a class="item" href="{{ request.route_url('show_profile',id=request.user.id) }}">
     <i class="user icon"></i>
@@ -30,7 +33,10 @@
 <div class="ui grid">
     <div class="tablet computer only row">
         <div class="ui top fixed right menu">
-            <a class="right item" href="{{ request.route_url('home') }}"><i class="home icon"></i> {{ 'home'|upper }}</a>
+            <a class="right item" href="{{ request.route_url('home') }}">
+                <i class="home icon"></i>
+                {{ 'home'|upper }}
+            </a>
             {% if request.user %}
             <a class="item" href="{{ request.route_url('show_profile',id=request.user.id) }}">
                 <i class="user icon"></i>

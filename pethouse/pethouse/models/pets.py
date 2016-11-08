@@ -15,6 +15,7 @@ class Pet(Base):
 
     type_id = Column(Integer, ForeignKey('pettype.id'), nullable=False)
     name = Column(Text, nullable=False)
+    description = Column(Text, nullable=False)
     owner_id = Column(Integer, ForeignKey('user.id'), nullable=False)
 
     type = relationship(

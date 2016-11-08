@@ -14,6 +14,7 @@
       // our app is within the app folder
       //homeapp: '/ngapps/home',
       registrationapp: '/ngapps/registration',
+      addpet: '/ngapps/addpet',
       // angular bundles
       '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
       '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
@@ -24,8 +25,9 @@
       '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
       // other libraries
-      'rxjs':                      'npm:rxjs',
+      'rxjs': 'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api',
+      'common': '/ngapps/common',
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -36,6 +38,13 @@
       registrationapp: {
           main: './reg.main.js',
           defaultExtension: 'js'
+      },
+      addpet:{
+          main: './addpet.main.js',
+          defaultExtension: 'js'
+      },
+      common:{
+        defaultExtension: 'js'
       },
       rxjs: {
         defaultExtension: 'js'

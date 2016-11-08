@@ -2,6 +2,36 @@
 
 {% block PageContent %}
 {% if user %}
-<h1 class="ui center aligned header">{{ user.username|e }}'s Profile</h1>
+<h1 class="ui center aligned header">{{ user.username|e }}'s Pet House</h1><div class="ui divider"></div>
+
+<div class="ui container">
+    <div class="ui grid">
+        <div class="sixteen wide mobile six wide computer column">
+            <add-pet-form><div class="ui active centered inline loader"></div></add-pet-form>
+        </div>
+        <div class="sixteen wide mobile ten wide computer column">
+            <div class="ui raised segment" style="border-left: 2px solid darkgreen">
+                <img src="/static/images/cat.png" class="ui left floated tiny image">
+                <h3 class="header">KittY</h3>
+                <p>She is a beauty.</p>
+            </div>
+
+            <div class="ui raised segment" style="border-left: 2px solid darkblue">
+                <img src="/static/images/dog.png" class="ui left floated tiny image">
+                <h3 class="header">Tom</h3>
+                <p>She is a beauty.</p>
+            </div>
+
+            <div class="ui raised segment" style="border-left: 2px solid darkred">
+                <img src="/static/images/bird.png" class="ui left floated tiny image">
+                <h3 class="header">Bidd</h3>
+                <p>She is a beauty.</p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endif %}
+<script>
+    System.import('addpet').catch(function(err){ console.error(err); });
+</script>
 {% endblock %}
