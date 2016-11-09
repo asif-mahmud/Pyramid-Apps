@@ -4,9 +4,9 @@
 import {Component, OnInit} from "@angular/core";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
-import {AddPetService} from "common/addpet.service";
-import {PetTypeService} from "common/pettypes.service";
-import {Pet, PetType, VStatus} from "common/interfaces";
+import {AddPetService} from "../common/addpet.service";
+import {PetTypeService} from "../common/pettypes.service";
+import {Pet, PetType, VStatus} from "../common/interfaces";
 
 
 @Component({

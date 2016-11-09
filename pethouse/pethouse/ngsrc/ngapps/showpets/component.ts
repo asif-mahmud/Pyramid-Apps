@@ -2,8 +2,8 @@
  * Created by shimon on 11/8/16.
  */
 import {Component, OnInit, ElementRef} from "@angular/core";
-import {AddPetService} from "common/addpet.service";
-import {PetObj} from "common/interfaces";
+import {AddPetService} from "../common/addpet.service";
+import {PetObj} from "../common/interfaces";
 
 
 @Component({
