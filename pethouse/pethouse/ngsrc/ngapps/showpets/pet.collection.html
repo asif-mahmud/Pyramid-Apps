@@ -1,3 +1,6 @@
+<div class="ui raised positive segment" *ngIf="pets.length === 0">
+    <h4 class="ui center aligned">No pet in your house? Add one now...</h4>
+</div>
 <div class="ui raised segment" *ngFor="let pet of pets">
     <img src="/static/images/cat.png" *ngIf="pet.type==='Cat'" class="ui left floated tiny image">
     <img src="/static/images/dog.png" *ngIf="pet.type==='Dog'" class="ui left floated tiny image">
