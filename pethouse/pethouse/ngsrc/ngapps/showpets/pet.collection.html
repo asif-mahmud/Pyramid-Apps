@@ -1,5 +1,9 @@
 <div class="ui raised segment" *ngFor="let pet of pets">
-    <img src="/static/images/dog.png" class="ui left floated tiny image">
+    <img src="/static/images/cat.png" *ngIf="pet.type==='Cat'" class="ui left floated tiny image">
+    <img src="/static/images/dog.png" *ngIf="pet.type==='Dog'" class="ui left floated tiny image">
+    <img src="/static/images/fish.png" *ngIf="pet.type==='Fish'" class="ui left floated tiny image">
+    <img src="/static/images/bird.png" *ngIf="pet.type==='Bird'" class="ui left floated tiny image">
+    <img src="/static/images/lizard.png" *ngIf="pet.type==='Lizard'" class="ui left floated tiny image">
     <h3 class="header">{{pet.name}}</h3>
     <p>{{pet.description}}</p>
 </div>
