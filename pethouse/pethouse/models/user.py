@@ -71,16 +71,16 @@ class User(Base):
 
     def __json__(self, request):
         return dict(
-            username=escape(self.username),
-            first_name=escape(self.first_name),
-            last_name=escape(self.last_name),
+            username=escape(''.join(self.username)),
+            first_name=escape(''.join(self.first_name)),
+            last_name=escape(''.join(self.last_name)),
             pets=self.pets,
         )
 
     def __repr__(self):
         return escape(
             '{} {}'.format(
-                self.first_name,
-                self.last_name
+                ''.join(self.first_name),
+                ''.join(self.last_name)
             )
         )

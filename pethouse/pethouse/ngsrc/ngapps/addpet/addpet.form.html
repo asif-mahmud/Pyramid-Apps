@@ -1,21 +1,22 @@
 <h3 class="ui center aligned header">Add a new pet to your collection</h3>
-<form class="ui form">
+<form class="ui form" #petForm="ngForm" (submit)="onSubmit()" >
+    <div class="ui positive message" [class.hidden]="!submitted"><p *ngFor="let msg of vstatus.msg_stack">{{msg}}</p> </div>
+    <div class="ui error message" [class.visible]="submitted&&!vstatus.success"><p *ngFor="let msg of vstatus.msg_stack"></div>
     <div class="field">
         <div class="ui labeled input">
             <div class="ui label">Name</div>
-            <input type="text">
+            <input type="text" required name="name" [(ngModel)]="pet.name">
         </div>
     </div>
     <div class="field">
         <label for="type">Select pet type</label>
-        <select class="ui search selectable dropdown" id="type">
-            <option>Cat</option>
-            <option>Dog</option>
+        <select class="ui search selectable dropdown" id="type" required name="type" [(ngModel)]="pet.type">
+            <option *ngFor="let type of petTypes" [value]="type.id">{{type.name}}</option>
         </select>
     </div>
     <div class="field">
         <label for="desc">Describe your pet</label>
-        <textarea id="desc"></textarea>
+        <textarea id="desc" required name="description" [(ngModel)]="pet.description"></textarea>
     </div>
     <div class="ui center aligned grid field">
         <button class="ui facebook button">Add</button>

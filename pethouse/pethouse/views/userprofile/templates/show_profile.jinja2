@@ -10,28 +10,13 @@
             <add-pet-form><div class="ui active centered inline loader"></div></add-pet-form>
         </div>
         <div class="sixteen wide mobile ten wide computer column">
-            <div class="ui raised segment" style="border-left: 2px solid darkgreen">
-                <img src="/static/images/cat.png" class="ui left floated tiny image">
-                <h3 class="header">KittY</h3>
-                <p>She is a beauty.</p>
-            </div>
-
-            <div class="ui raised segment" style="border-left: 2px solid darkblue">
-                <img src="/static/images/dog.png" class="ui left floated tiny image">
-                <h3 class="header">Tom</h3>
-                <p>She is a beauty.</p>
-            </div>
-
-            <div class="ui raised segment" style="border-left: 2px solid darkred">
-                <img src="/static/images/bird.png" class="ui left floated tiny image">
-                <h3 class="header">Bidd</h3>
-                <p>She is a beauty.</p>
-            </div>
+            <pet-collection userid="{{ request.matchdict['id'] }}"><div class="ui active centered inline loader"></div></pet-collection>
         </div>
     </div>
 </div>
 {% endif %}
 <script>
-    System.import('addpet').catch(function(err){ console.error(err); });
+    System.import('showprofile').catch(function(err){ console.error(err); });
+    //System.import('showpets').catch(function(err){ console.error(err); });
 </script>
 {% endblock %}

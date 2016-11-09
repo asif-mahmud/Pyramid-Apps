@@ -15,6 +15,8 @@
       //homeapp: '/ngapps/home',
       registrationapp: '/ngapps/registration',
       addpet: '/ngapps/addpet',
+      showpets: '/ngapps/showpets',
+      showprofile: '/ngapps/showprofile',
       // angular bundles
       '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
       '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
@@ -42,6 +44,14 @@
       addpet:{
           main: './addpet.main.js',
           defaultExtension: 'js'
+      },
+      showpets:{
+          main: './main.js',
+          defaultExtension: 'js'
+      },
+      showprofile:{
+          main: './main.js',
+          defaultExtension:'js'
       },
       common:{
         defaultExtension: 'js'

@@ -22,3 +22,4 @@ def includeme(config):
     # Add all of your view modules by include method
     config.include('.views.home', route_prefix='home')
     config.include('.views.userprofile', route_prefix='user')
+    config.include('.views.services', route_prefix='services')

@@ -23,8 +23,9 @@ class PetType(Base):
 
     def __json__(self, request):
         return dict(
-            name=self.name,
+            id=self.id,
+            name=escape(''.join(self.name)),
         )
 
     def __repr__(self):
-        return escape(self.name)
+        return escape(''.join(self.name))

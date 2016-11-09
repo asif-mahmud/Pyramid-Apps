@@ -30,12 +30,13 @@ class Pet(Base):
 
     def __json__(self, request):
         return dict(
-            type=str(self.type),
-            name=escape(self.name),
-            owner=str(self.owner),
+            type=escape(''.join(self.type.name)),
+            name=escape(''.join(self.name)),
+            owner=escape(''.join(self.owner.username)),
+            description=escape(''.join(self.description)),
         )
 
     def __repr__(self):
         return escape(
-            self.name
+            ''.join(self.name)
         )
